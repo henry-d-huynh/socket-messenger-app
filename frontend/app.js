@@ -1,6 +1,6 @@
 import { io } from "./node_modules/socket.io-client/dist/socket.io.esm.min.js";
 
-const wsHost = "ws://socket-messenger-app-5zksr.ondigitalocean.app";
+const wsHost = "wss://socket-messenger-app-5zksr.ondigitalocean.app";
 
 class App {
   constructor() {
