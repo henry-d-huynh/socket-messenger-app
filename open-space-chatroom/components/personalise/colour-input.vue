@@ -57,6 +57,7 @@ export default {
 
     .colours_input__buttons {
       display: grid;
+      place-items: center;
       grid-template-columns: repeat(4, 1fr);
       grid-gap: 1em;
 
@@ -66,6 +67,12 @@ export default {
         border-radius: 1000px;
         border: none;
         cursor: pointer;
+        transition: all 100ms ease-in-out;
+      }
+
+      button:active {
+        width: 22px;
+        height: 22px;
       }
 
       .selected {
