@@ -40,7 +40,7 @@ export default {
   }
 
   button:active {
-    animation: spin 1s infinite linear;
+    animation: spin 1s 150ms infinite linear;
     scale: 0.9;
   }
 }
