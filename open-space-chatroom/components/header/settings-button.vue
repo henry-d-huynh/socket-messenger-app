@@ -10,12 +10,12 @@
 export default {
   methods: {
     toggleSettings() {
-      this.$store.dispatch('toggleMenu');
+      this.$store.dispatch('menu/toggle');
     },
   },
   computed: {
     icon() {
-      if (this.$store.getters.currMenuState === '') return ['fas', 'cog'];
+      if (this.$store.getters['menu/currState'] === '') return ['fas', 'cog'];
       return ['fas', 'caret-circle-up'];
     },
   },
@@ -40,7 +40,7 @@ export default {
   }
 
   button:active {
-    animation: spin 1s 150ms infinite linear;
+    animation: spin 1s 100ms infinite linear;
     scale: 0.9;
   }
 }

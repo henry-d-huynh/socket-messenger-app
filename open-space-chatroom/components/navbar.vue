@@ -8,9 +8,7 @@
 
     <PersonaliseInputs v-if="currState === 'personalise'" />
 
-    <button class="viewUsers" v-if="currState === 'personalise'">
-      View active users
-    </button>
+    <button class="viewUsers" v-if="currState !== ''">View active users</button>
   </nav>
 </template>
 
@@ -18,8 +16,11 @@
 export default {
   computed: {
     currState() {
-      return this.$store.getters.currMenuState;
+      return this.$store.getters['menu/currState'];
     },
+  },
+  methods: {
+    showActiveUsers() {},
   },
 };
 </script>
