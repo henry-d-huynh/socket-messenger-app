@@ -1,10 +1,20 @@
 <template>
   <div class="settings">
-    <button>
+    <button @click="toggleSettings">
       <font-awesome-icon :icon="['fas', 'cog']" />
     </button>
   </div>
 </template>
+
+<script>
+export default {
+  methods: {
+    toggleSettings() {
+      this.$store.dispatch('toggleMenu');
+    },
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 .settings {

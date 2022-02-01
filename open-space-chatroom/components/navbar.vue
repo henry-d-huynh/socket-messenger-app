@@ -1,15 +1,27 @@
 <template>
   <nav>
-    <div class="header">
-      <UiLogo />
+    <div class="header" ref="header">
+      <HeaderLogo />
 
-      <ButtonSettings />
+      <HeaderSettingsButton />
     </div>
+
+    <PersonaliseInputs v-if="currState === 'personalise'" />
+
+    <button class="viewUsers" v-if="currState === 'personalise'">
+      View active users
+    </button>
   </nav>
 </template>
 
 <script>
-export default {};
+export default {
+  computed: {
+    currState() {
+      return this.$store.getters.currMenuState;
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -25,5 +37,20 @@ nav {
     display: grid;
     grid-template-columns: 90px 1fr;
   }
+}
+
+button {
+  border: none;
+  color: white;
+  padding: 0.8em;
+  width: 100%;
+  border-radius: 10px;
+  font-size: 1em;
+
+  cursor: pointer;
+}
+
+.viewUsers {
+  background-color: #209733;
 }
 </style>
