@@ -1,14 +1,20 @@
 <template>
-  <nav>
+  <nav @blur="onBlur">
     <div class="header" ref="header">
       <HeaderLogo />
 
       <HeaderSettingsButton />
     </div>
 
-    <PersonaliseInputs v-if="currState === 'personalise'" />
+    <div class="container" v-if="currState">
+      <PersonaliseInputs v-if="currState === 'personalise'" />
 
-    <button class="viewUsers" v-if="currState !== ''">View active users</button>
+      <button class="viewUsers" v-if="currState" @click="toggleButton">
+        {{ buttonText }}
+      </button>
+
+      <ActiveUsers v-if="currState === 'showActiveUsers'" />
+    </div>
   </nav>
 </template>
 
@@ -18,9 +24,19 @@ export default {
     currState() {
       return this.$store.getters['menu/currState'];
     },
+
+    buttonText() {
+      return this.$store.getters['menu/buttonText'];
+    },
   },
   methods: {
-    showActiveUsers() {},
+    toggleButton() {
+      this.$store.dispatch('menu/toggleButton');
+    },
+
+    onBlur() {
+      console.log('BLUR BITCHES');
+    },
   },
 };
 </script>
@@ -38,6 +54,10 @@ nav {
     display: grid;
     grid-template-columns: 90px 1fr;
   }
+}
+
+.container {
+  margin-top: 2em;
 }
 
 button {

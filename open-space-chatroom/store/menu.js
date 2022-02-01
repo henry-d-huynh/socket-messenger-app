@@ -10,8 +10,14 @@ export const mutations = {
 
 export const getters = {
   currState(state) {
-    console.log(state.state);
     return state.state;
+  },
+
+  buttonText(state) {
+    if (state.state === 'personalise') return 'View active users';
+    if (state.state === 'showActiveUsers') return 'Personalise';
+
+    return 'View Active users';
   },
 };
 
@@ -20,10 +26,20 @@ export const actions = {
     context.commit('updateMenuState', newState);
   },
 
-  toggle(context) {
+  toggleMenu(context) {
     if (context.getters.currState === '')
       return context.commit('updateMenuState', 'personalise');
 
     context.commit('updateMenuState', '');
+  },
+
+  toggleButton(context) {
+    if (context.getters.currState === 'personalise')
+      return context.commit('updateMenuState', 'showActiveUsers');
+    context.commit('updateMenuState', 'personalise');
+  },
+
+  toggleActiveUsers(context) {
+    context.commit('updateMenuState', 'showActiveUsers');
   },
 };

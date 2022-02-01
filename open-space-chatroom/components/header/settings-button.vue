@@ -10,7 +10,7 @@
 export default {
   methods: {
     toggleSettings() {
-      this.$store.dispatch('menu/toggle');
+      this.$store.dispatch('menu/toggleMenu');
     },
   },
   computed: {

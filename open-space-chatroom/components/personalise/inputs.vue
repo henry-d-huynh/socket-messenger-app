@@ -14,7 +14,7 @@ export default {};
 .personalise_inputs {
   display: grid;
   grid-gap: 2em;
-  margin: 2.5em 0 1em 0;
+  margin-bottom: 1em;
 }
 
 button {
