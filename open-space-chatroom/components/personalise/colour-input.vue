@@ -27,6 +27,7 @@ export default {
   methods: {
     selectColour(colour) {
       this.selectedColour = colour;
+      //  Iterates through all the colour selections buttons and toggles the selected class for the currently selected colour
       this.buttons.forEach((button) => {
         if (button.classList.contains(this.selectedColour))
           return button.classList.add('selected');
