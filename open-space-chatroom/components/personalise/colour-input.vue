@@ -34,6 +34,8 @@ export default {
 
         button.classList.remove('selected');
       });
+
+      this.$emit('colourChange', colour);
     },
   },
   mounted() {

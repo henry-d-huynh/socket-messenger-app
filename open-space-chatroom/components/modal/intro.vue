@@ -4,7 +4,8 @@
     <div class="modal">
       <div class="container">
         <p class="intro_text">
-          Welcome to Open Space Chatroom, this is an expiremental app.
+          Welcome to Open Space Chatroom, this is an expiremental app created
+          for learning purposes.
         </p>
         <img
           src="~/assets/images/logo.png"
@@ -15,8 +16,8 @@
           <strong>
             <p>To begin please enter your display name and message colour</p>
           </strong>
-          <PersonaliseNameInput />
-          <PersonaliseColourInput />
+          <PersonaliseNameInput @input="nameInput" />
+          <PersonaliseColourInput @colourChange="colourChange" />
 
           <div class="agreement">
             <button id="agree_btn" @click="toggleAgreement">
@@ -28,7 +29,7 @@
             <span>I confirm that I am 18+ years of age.</span>
           </div>
 
-          <button id="submit_btn">Proceed</button>
+          <button id="submit_btn" @click="onSubmit">Proceed</button>
         </div>
       </div>
     </div>
@@ -39,11 +40,27 @@
 export default {
   data: () => ({
     agreementConfirmed: false,
+    name: '',
+    colour: '',
   }),
 
   methods: {
     toggleAgreement() {
       this.agreementConfirmed = !this.agreementConfirmed;
+    },
+    nameInput(name) {
+      this.name = name;
+    },
+    colourChange(colour) {
+      this.colour = colour;
+    },
+    onSubmit() {
+      const userDetails = {
+        name: this.name,
+        colour: this.colour,
+      };
+
+      console.log(userDetails);
     },
   },
 };
@@ -104,9 +121,9 @@ export default {
     }
 
     .logo_img {
-      max-width: 150px;
+      max-width: 100px;
       width: 100%;
-      margin: 0 auto;
+      margin: 1em auto;
     }
 
     .inputs {
@@ -161,15 +178,19 @@ export default {
   }
 }
 
+.modal::-webkit-scrollbar {
+  display: none;
+}
+
 p {
   margin: 0;
 }
 
 @media (min-width: 992px) {
   .modal {
-    max-width: 800px;
-    max-height: 600px;
-    border-radius: 20px;
+    // max-width: 800px;
+    // max-height: 600px;
+    // border-radius: 20px;
   }
 }
 </style>

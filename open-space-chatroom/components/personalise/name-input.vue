@@ -1,12 +1,26 @@
 <template>
   <div class="input_field">
     <label for="name_input"> Display name </label>
-    <input id="name_input" type="text" />
+    <input
+      id="name_input"
+      type="text"
+      v-model="name"
+      placeholder="John Smith"
+    />
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data: () => ({
+    name: '',
+  }),
+  watch: {
+    name(input) {
+      this.$emit('input', input);
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
