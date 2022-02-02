@@ -27,7 +27,8 @@ export default {
   display: grid;
   grid-gap: 1em;
   height: 340px;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
 
   .user {
     display: grid;
@@ -37,5 +38,9 @@ export default {
     background-color: #3a3a3a80;
     border-radius: 10px;
   }
+}
+
+.active_users::-webkit-scrollbar {
+  display: none;
 }
 </style>

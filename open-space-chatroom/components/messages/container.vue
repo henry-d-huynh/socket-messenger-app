@@ -1,9 +1,9 @@
 <template>
   <div class="messages">
     <div
-      class="user_message"
       v-for="(userMessage, uIndex) in userMessages"
       :key="uIndex"
+      :class="'user_message ' + isOwner(userMessage)"
     >
       <span
         class="message"
@@ -38,6 +38,11 @@ export default {
     getName(userMessage) {
       return userMessage.name;
     },
+
+    isOwner(userMessage) {
+      const userId = this.$store.getters.userDetails.userId;
+      return userId === userMessage.userId ? 'owner' : '';
+    },
   },
 };
 </script>
@@ -47,10 +52,15 @@ export default {
   display: grid;
   grid-gap: 1em;
 
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
 
   box-sizing: border-box;
-  padding: 0 0.5em;
+  padding: 0 0.5em 2em 0.5em;
+}
+
+.messages::-webkit-scrollbar {
+  display: none;
 }
 
 .user_message {
@@ -70,5 +80,15 @@ export default {
 
 .name {
   padding-left: 1em;
+}
+
+.owner {
+  .message {
+    justify-self: flex-end;
+  }
+
+  .name {
+    display: none;
+  }
 }
 </style>
