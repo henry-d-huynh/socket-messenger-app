@@ -185,12 +185,4 @@ export default {
 p {
   margin: 0;
 }
-
-@media (min-width: 992px) {
-  .modal {
-    // max-width: 800px;
-    // max-height: 600px;
-    // border-radius: 20px;
-  }
-}
 </style>
