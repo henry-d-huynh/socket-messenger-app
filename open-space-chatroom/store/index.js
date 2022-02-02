@@ -74,6 +74,10 @@ export const getters = {
     return state.activeUsers;
   },
 
+  activeUsersLength(state) {
+    return state.activeUsers.length;
+  },
+
   userDetails(state) {
     return state.userDetails;
   },

@@ -1,9 +1,8 @@
 <template>
   <div class="container">
-    <p>Active users</p>
+    <p>Active users ( {{ usersLength }} )</p>
     <div class="active_users">
       <div class="user" v-for="user in users" :key="user">{{ user }}</div>
-      <div class="user" v-for="user in users" :key="user + '2'">{{ user }}</div>
     </div>
   </div>
 </template>
@@ -14,18 +13,24 @@ export default {
     users() {
       return this.$store.getters.activeUsers;
     },
+    usersLength() {
+      return this.$store.getters.activeUsersLength;
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .container {
+  display: grid;
   height: 100%;
+  grid-template-rows: min-content minmax(0, 1fr);
 }
 
 .active_users {
   display: grid;
-  grid-gap: 1em;
+  grid-gap: 10px;
+  grid-auto-rows: min-content;
   height: 340px;
   overflow-y: scroll;
   overflow-x: hidden;

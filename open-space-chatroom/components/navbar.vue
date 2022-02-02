@@ -13,7 +13,9 @@
         {{ buttonText }}
       </button>
 
-      <ActiveUsers v-if="currState === 'showActiveUsers'" />
+      <div id="activeUsersMobile">
+        <ActiveUsers v-if="currState === 'showActiveUsers'" />
+      </div>
     </div>
 
     <div id="activeUsersDesktop">
@@ -37,6 +39,12 @@ export default {
     toggleButton() {
       this.$store.dispatch('menu/toggleButton');
     },
+    resetMenuState() {
+      this.$store.dispatch('menu/updateState', '');
+    },
+  },
+  created() {
+    window.addEventListener('resize', this.resetMenuState);
   },
 };
 </script>
@@ -86,10 +94,23 @@ button {
   nav {
     height: 100%;
     display: grid;
-    grid-template-rows: min-content minmax(0, min-content) minmax(0, 1fr);
+    grid-template-rows: min-content minmax(0, min-content) minmax(
+        0,
+        min-content
+      );
+  }
+
+  .container {
+    margin-top: 0;
+    box-sizing: border-box;
+    padding-top: 2em;
   }
 
   .viewUsers {
+    display: none;
+  }
+
+  #activeUsersMobile {
     display: none;
   }
 
