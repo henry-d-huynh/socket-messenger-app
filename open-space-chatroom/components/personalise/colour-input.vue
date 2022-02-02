@@ -78,23 +78,6 @@ export default {
       .selected {
         border: 2px solid white;
       }
-
-      /* Colours */
-      .blue {
-        background-color: #0047ff;
-      }
-
-      .pink {
-        background-color: #df15cb;
-      }
-
-      .red {
-        background-color: #ff3232;
-      }
-
-      .yellow {
-        background-color: #ffa800;
-      }
     }
   }
 }

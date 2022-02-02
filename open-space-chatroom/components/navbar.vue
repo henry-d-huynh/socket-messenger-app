@@ -1,5 +1,5 @@
 <template>
-  <nav @blur="onBlur">
+  <nav>
     <div class="header" ref="header">
       <HeaderLogo />
 
@@ -33,16 +33,14 @@ export default {
     toggleButton() {
       this.$store.dispatch('menu/toggleButton');
     },
-
-    onBlur() {
-      console.log('BLUR BITCHES');
-    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 nav {
+  position: absolute;
+
   width: 100%;
   min-height: 62px;
   border-radius: 20px;

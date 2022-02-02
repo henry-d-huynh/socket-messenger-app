@@ -5,6 +5,31 @@ html {
 }
 
 body {
-  max-height: 100vh;
+  height: 100vh;
   overflow: hidden;
+  padding: 1em;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+#__nuxt,
+#__layout {
+  height: 100%;
+}
+
+/* Colours */
+.blue {
+  background-color: #0047ff;
+}
+
+.pink {
+  background-color: #df15cb;
+}
+
+.red {
+  background-color: #ff3232;
+}
+
+.yellow {
+  background-color: #ffa800;
 }
