@@ -72,4 +72,10 @@ button {
 .viewUsers {
   background-color: #209733;
 }
+
+@media (min-width: 992px) {
+  nav {
+    height: 100%;
+  }
+}
 </style>
