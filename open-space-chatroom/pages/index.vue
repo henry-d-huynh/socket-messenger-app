@@ -1,11 +1,14 @@
 <template>
-  <main>
-    <div id="navbar">
-      <Navbar />
-    </div>
-    <MessagesContainer />
-    <ChatInput />
-  </main>
+  <div class="container">
+    <ModalIntro />
+    <main class="blur">
+      <div id="navbar">
+        <Navbar />
+      </div>
+      <MessagesContainer />
+      <ChatInput />
+    </main>
+  </div>
 </template>
 
 <script>
@@ -15,11 +18,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.container {
+  width: 100%;
+  height: 100%;
+}
+
 main {
   position: relative;
   height: 100%;
   display: grid;
   grid-template-rows: 71px 1fr min-content;
+}
+
+.blur {
+  filter: blur(20px);
 }
 
 #navbar {

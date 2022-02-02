@@ -34,6 +34,7 @@ export default {
   height: 340px;
   overflow-y: scroll;
   overflow-x: hidden;
+  scrollbar-width: none;
 
   .user {
     display: grid;

@@ -47,6 +47,11 @@ export default {
 .colours_input {
   width: 100%;
 
+  label {
+    padding-bottom: 0.5em;
+    display: block;
+  }
+
   .colours_input__options {
     height: 51px;
     background-color: black;

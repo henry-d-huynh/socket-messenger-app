@@ -58,6 +58,8 @@ export default {
 
   box-sizing: border-box;
   padding: 0 0.5em 2em 0.5em;
+
+  scrollbar-width: none;
 }
 
 .messages::-webkit-scrollbar {
