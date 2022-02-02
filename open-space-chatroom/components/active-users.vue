@@ -43,4 +43,10 @@ export default {
 .active_users::-webkit-scrollbar {
   display: none;
 }
+
+@media (min-width: 992px) {
+  .active_users {
+    height: 100%;
+  }
+}
 </style>

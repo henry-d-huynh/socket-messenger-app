@@ -15,6 +15,10 @@
 
       <ActiveUsers v-if="currState === 'showActiveUsers'" />
     </div>
+
+    <div id="activeUsersDesktop">
+      <ActiveUsers />
+    </div>
   </nav>
 </template>
 
@@ -40,6 +44,7 @@ export default {
 <style lang="scss" scoped>
 nav {
   position: absolute;
+  overflow: hidden;
 
   width: 100%;
   min-height: 62px;
@@ -73,8 +78,23 @@ button {
   background-color: #209733;
 }
 
+#activeUsersDesktop {
+  display: none;
+}
+
 @media (min-width: 992px) {
   nav {
+    height: 100%;
+    display: grid;
+    grid-template-rows: min-content minmax(0, min-content) minmax(0, 1fr);
+  }
+
+  .viewUsers {
+    display: none;
+  }
+
+  #activeUsersDesktop {
+    display: block;
     height: 100%;
   }
 }
