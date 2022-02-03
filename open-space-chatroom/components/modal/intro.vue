@@ -2,10 +2,6 @@
   <div class="intro_modal">
     <div class="overlay"></div>
 
-    <transition @after-enter="setTimeout">
-      <div class="error_message" v-if="showError">{{ errorMessage }}</div>
-    </transition>
-
     <div class="modal">
       <div class="container">
         <p class="intro_text">
@@ -47,9 +43,6 @@ export default {
     agreementConfirmed: false,
     name: '',
     colour: '',
-    errorMessage: '',
-    showError: false,
-    timeout: null,
   }),
 
   props: {
@@ -77,12 +70,6 @@ export default {
       };
       this.socket.emit('create_user', userDetails);
     },
-    setTimeout() {
-      if (this.timeout) clearTimeout(this.timeout);
-      this.timeout = setTimeout(() => {
-        this.showError = false;
-      }, 5000);
-    },
   },
 
   mounted() {
@@ -91,11 +78,7 @@ export default {
     });
 
     this.socket.on('user_create_error', (message) => {
-      this.errorMessage = message;
-      if ((this.showError = true)) {
-        this.setTimeout();
-      }
-      this.showError = true;
+      this.$store.dispatch('error/showError', message);
     });
   },
 };
@@ -121,24 +104,6 @@ export default {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.8);
-}
-
-.error_message {
-  position: absolute;
-  z-index: 30;
-  top: 2%;
-  left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
-  width: 80vw;
-
-  color: white;
-  background-color: rgb(149, 0, 0);
-
-  padding: 1em 2em;
-  box-sizing: border-box;
-
-  border-radius: 10px;
 }
 
 .modal {
@@ -237,16 +202,5 @@ export default {
 
 p {
   margin: 0;
-}
-
-.v-enter-active,
-.v-leave-active {
-  transition: all 200ms ease-in-out;
-}
-
-.v-enter,
-.v-leave-to {
-  opacity: 0;
-  transform: translate(-50%, -200%);
 }
 </style>

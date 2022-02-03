@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <ModalError />
     <ModalIntro v-if="connected" :socket="socket" />
     <ModalLoading v-else />
     <main class="blur">
