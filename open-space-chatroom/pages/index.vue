@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-    <ModalIntro />
+    <ModalIntro v-if="connected" :socket="socket" />
+    <ModalLoading v-else />
     <main class="blur">
       <div id="navbar">
         <Navbar />
@@ -12,8 +13,21 @@
 </template>
 
 <script>
+import { io } from 'socket.io-client';
+
 export default {
   name: 'IndexPage',
+  data: () => ({
+    socket: {},
+    connected: false,
+  }),
+  created() {
+    this.socket = io('http://localhost:1337');
+
+    this.socket.on('connect', () => {
+      this.connected = true;
+    });
+  },
 };
 </script>
 
