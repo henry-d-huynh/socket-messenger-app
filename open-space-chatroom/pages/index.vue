@@ -9,7 +9,7 @@
         <Navbar :socket="socket" />
       </div>
       <MessagesContainer />
-      <ChatInput />
+      <ChatInput :socket="socket" />
     </main>
   </div>
 </template>
@@ -77,6 +77,10 @@ export default {
 
       this.$store.dispatch('user/updateMyUser', newUserDetails);
       this.$store.dispatch('menu/updateState', '');
+    });
+
+    this.socket.on('message_receive', (message) => {
+      this.$store.commit('addMessage', message);
     });
 
     this.socket.on('user_updated', (newUserDetails) => {

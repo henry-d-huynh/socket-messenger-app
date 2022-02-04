@@ -7,11 +7,11 @@
     >
       <span
         class="message"
-        v-for="(message, mIndex) in getMessages(userMessage)"
-        :key="uIndex + '-' + mIndex"
+        v-for="message in getMessages(userMessage)"
+        :key="message.id"
       >
         <span :class="'message_wrapper ' + getColour(userMessage)">
-          {{ message }}
+          {{ message.text }}
         </span>
       </span>
       <span class="name">{{ getName(userMessage) }}</span>
@@ -40,8 +40,8 @@ export default {
     },
 
     isOwner(userMessage) {
-      // const userId = this.$store.getters.userDetails.userId;
-      // return userId === userMessage.userId ? 'owner' : '';
+      const userId = this.$store.getters['user/myUserID'];
+      return userId === userMessage.userID ? 'owner' : '';
     },
   },
 };

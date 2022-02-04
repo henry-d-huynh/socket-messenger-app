@@ -38,4 +38,7 @@ export const getters = {
   myUserName(state) {
     return state.myUserDetails?.name || '';
   },
+  myUserID(state) {
+    return state.myUserDetails?.userID || '';
+  },
 };
