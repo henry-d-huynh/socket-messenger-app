@@ -42,6 +42,12 @@ export default {
     this.buttons = this.$el.querySelectorAll('button');
     this.selectColour(this.selectedColour);
   },
+  created() {
+    if (!this.$store.getters['socket/isVerified']) {
+      this.selectedColour =
+        this.colours[Math.trunc(Math.random() * this.colours.length)];
+    }
+  },
 };
 </script>
 
