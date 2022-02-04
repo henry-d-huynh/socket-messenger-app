@@ -5,14 +5,7 @@ export const state = () => ({
     colour: 'blue',
   },
 
-  activeUsers: [
-    'Charles',
-    'Jacob',
-    'Paul Scott',
-    'Malcome',
-    'Daniel Denial',
-    'Justine Belieber',
-  ],
+  activeUsers: [],
 
   userMessages: [
     {
@@ -68,6 +61,12 @@ export const state = () => ({
     },
   ],
 });
+
+export const mutations = {
+  updateActiveUsers(state, activeUsers) {
+    state.activeUsers = activeUsers;
+  },
+};
 
 export const getters = {
   activeUsers(state) {

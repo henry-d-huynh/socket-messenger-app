@@ -2,7 +2,9 @@
   <div class="container">
     <p>Active users ( {{ usersLength }} )</p>
     <div class="active_users">
-      <div class="user" v-for="user in users" :key="user">{{ user }}</div>
+      <div class="user" v-for="user in users" :key="getUserID(user)">
+        {{ getUserName(user) }}
+      </div>
     </div>
   </div>
 </template>
@@ -15,6 +17,14 @@ export default {
     },
     usersLength() {
       return this.$store.getters.activeUsersLength;
+    },
+  },
+  methods: {
+    getUserName(user) {
+      return user.name;
+    },
+    getUserID(user) {
+      return user.userID;
     },
   },
 };

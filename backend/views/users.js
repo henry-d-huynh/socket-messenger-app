@@ -100,9 +100,7 @@ class View {
   }
 
   removeUser() {
-    console.log("SOMEONE JUST DISCONNECTED");
     const connectedSockets = [...this._io.sockets.sockets].map((s) => s[0]);
-    console.log(connectedSockets);
 
     this._state.activeUsers = this._state.activeUsers.filter((user) =>
       user.sockets.some((socket) => connectedSockets.includes(socket))

@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <ModalError />
-    <ModalIntro v-if="connected && !verified" :socket="socket" />
-    <ModalLoading v-else-if="!connected" />
+    <ModalLoading v-if="!connected" />
+    <ModalIntro v-else-if="showModalIntro" :socket="socket" />
     <main :class="{ blur: !verified }">
       <div id="navbar">
         <Navbar />
@@ -20,6 +20,7 @@ export default {
   name: 'IndexPage',
   data: () => ({
     socket: {},
+    showModalIntro: false,
   }),
   computed: {
     connected() {
@@ -34,6 +35,8 @@ export default {
       'users/checkLocalStorage'
     );
 
+    this.fetchedLocalStorage = true;
+
     this.socket = io('http://localhost:1337');
 
     this.socket.on('connect', () => {
@@ -44,21 +47,24 @@ export default {
         // console.log(userDetails);
         userDetails.agree = true;
         this.socket.emit('create_user', userDetails);
+      } else {
+        this.showModalIntro = true;
       }
     });
 
     this.socket.on('verified', (userDetails) => {
-      console.log(userDetails);
       this.$store.dispatch('users/updateMyUser', userDetails);
       this.$store.dispatch('socket/userVerified');
+      this.showModalIntro = false;
     });
 
     this.socket.on('user_create_error', (message) => {
       this.$store.dispatch('error/showError', message);
+      this.showModalIntro = true;
     });
 
     this.socket.on('active_users', (activeUsers) => {
-      console.log(activeUsers);
+      this.$store.commit('updateActiveUsers', activeUsers);
     });
   },
 };

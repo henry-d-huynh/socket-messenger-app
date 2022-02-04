@@ -19,6 +19,8 @@ const port = 1337;
 io.on("connection", (socket) => {
   usersView = new UsersView(io, socket, state);
 
+  socket.emit("active_users", state.activeUsers);
+
   socket.on("create_user", usersView.createUser.bind(usersView));
 
   socket.on("disconnect", usersView.removeUser.bind(usersView));
