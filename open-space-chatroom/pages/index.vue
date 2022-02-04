@@ -1,9 +1,9 @@
 <template>
   <div class="container">
     <ModalError />
-    <ModalIntro v-if="connected" :socket="socket" />
-    <ModalLoading v-else />
-    <main class="blur">
+    <ModalIntro v-if="connected && !verified" :socket="socket" />
+    <ModalLoading v-else-if="!connected" />
+    <main :class="{ blur: !verified }">
       <div id="navbar">
         <Navbar />
       </div>
@@ -20,13 +20,45 @@ export default {
   name: 'IndexPage',
   data: () => ({
     socket: {},
-    connected: false,
   }),
-  created() {
+  computed: {
+    connected() {
+      return this.$store.getters['socket/isConnected'];
+    },
+    verified() {
+      return this.$store.getters['socket/isVerified'];
+    },
+  },
+  async created() {
+    const localStorageExists = await this.$store.dispatch(
+      'users/checkLocalStorage'
+    );
+
     this.socket = io('http://localhost:1337');
 
     this.socket.on('connect', () => {
-      this.connected = true;
+      this.$store.dispatch('socket/socketConnected');
+
+      if (localStorageExists) {
+        const userDetails = this.$store.getters['users/getMyUserDetails'];
+        // console.log(userDetails);
+        userDetails.agree = true;
+        this.socket.emit('create_user', userDetails);
+      }
+    });
+
+    this.socket.on('verified', (userDetails) => {
+      console.log(userDetails);
+      this.$store.dispatch('users/updateMyUser', userDetails);
+      this.$store.dispatch('socket/userVerified');
+    });
+
+    this.socket.on('user_create_error', (message) => {
+      this.$store.dispatch('error/showError', message);
+    });
+
+    this.socket.on('active_users', (activeUsers) => {
+      console.log(activeUsers);
     });
   },
 };

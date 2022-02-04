@@ -72,15 +72,7 @@ export default {
     },
   },
 
-  mounted() {
-    this.socket.on('user_created', (userDetails) => {
-      console.log(userDetails);
-    });
-
-    this.socket.on('user_create_error', (message) => {
-      this.$store.dispatch('error/showError', message);
-    });
-  },
+  mounted() {},
 };
 </script>
 

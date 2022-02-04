@@ -1,34 +1,35 @@
-const validColours = ["blue", "pink", "red", "yellow"];
-const error = "user_create_error";
+const { v4: randomId } = require("uuid");
 
-exports.createUser = (socket, userDetails) => {
+const usersModel = require("../models/usersModel");
+
+exports.userDisconnected = usersModel.userDisconnected;
+
+exports.createUser = (userDetails) => {
   const name = userDetails.name.trim();
   const colour = userDetails.colour;
   const agree = userDetails.agree;
+  const socketId = userDetails.socketId;
+  const id = userDetails.id ? userDetails.id : randomId();
 
-  if (!name) return socket.emit(error, "Please enter a display name");
+  const nameValidate = usersModel.validateUserName(name);
+  if (nameValidate.status !== "ok")
+    return {
+      success: false,
+      message: nameValidate.message,
+    };
 
-  const specialChars = /^[A-Za-z ]+$/;
+  const colourValidate = usersModel.validateUserColour(colour);
+  if (colourValidate.status !== "ok")
+    return {
+      success: false,
+      message: colourValidate.message,
+    };
 
-  if (!specialChars.test(name))
-    return socket.emit(
-      error,
-      "Display name should not contain numbers or special characters"
-    );
-
-  if (name.split(" ").length > 4)
-    return socket.emit(error, `Display name can't have more than 3 spaces`);
-
-  if (name.length > 30)
-    return socket.emit(
-      error,
-      `Display name should contain no more than 30 characters`
-    );
-
-  if (!validColours.includes(colour))
-    return socket.emit(error, "Invalid colour");
-
-  if (!agree) return socket.emit(error, `You must agree that you're 18+`);
+  if (!agree && !userDetails.id)
+    return {
+      success: false,
+      message: `You must agree that you're 18+`,
+    };
 
   const formattedName = name
     .toLowerCase()
@@ -37,9 +38,19 @@ exports.createUser = (socket, userDetails) => {
     .join(" ");
 
   const createdUser = {
-    formattedName,
+    name: formattedName,
     colour,
+    id,
+    socketId,
   };
 
-  socket.emit("user_created", createdUser);
+  usersModel.newActiveUser(createdUser);
+  return {
+    success: true,
+    data: createdUser,
+  };
+};
+
+exports.getActiveUsers = () => {
+  return usersModel.getActiveUsers();
 };

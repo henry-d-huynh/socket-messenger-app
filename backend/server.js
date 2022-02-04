@@ -1,9 +1,10 @@
-const { v4: randomId } = require("uuid");
 const express = require("express");
 const { createServer } = require("http");
 const { Server } = require("socket.io");
 
-const usersController = require("./controllers/usersController");
+const state = require("./model");
+
+const UsersView = require("./views/users");
 
 const app = express();
 const httpServer = createServer(app);
@@ -16,13 +17,11 @@ const io = new Server(httpServer, {
 const port = 1337;
 
 io.on("connection", (socket) => {
-  console.log("==========");
-  console.log(randomId());
-  console.log(socket.id);
+  usersView = new UsersView(io, socket, state);
 
-  socket.on("create_user", (userDetails) => {
-    usersController.createUser(socket, userDetails);
-  });
+  socket.on("create_user", usersView.createUser.bind(usersView));
+
+  socket.on("disconnect", usersView.removeUser.bind(usersView));
 });
 
 httpServer.listen(port, () => {
