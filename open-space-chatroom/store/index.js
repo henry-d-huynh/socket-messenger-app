@@ -1,13 +1,6 @@
 export const state = () => ({
   activeUsers: [],
-  userMessages: [
-    {
-      userID: 'test',
-      name: 'Someone',
-      colour: 'blue',
-      messages: [{ text: 'this is a test message', id: 'messageIdTest123' }],
-    },
-  ],
+  userMessages: [],
 });
 
 export const mutations = {
