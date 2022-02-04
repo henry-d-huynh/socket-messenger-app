@@ -55,6 +55,7 @@ export default {
     this.socket.on('verified', (userDetails) => {
       this.$store.dispatch('users/updateMyUser', userDetails);
       this.$store.dispatch('socket/userVerified');
+      this.$store.commit('updateMyDetails', userDetails);
       this.showModalIntro = false;
     });
 

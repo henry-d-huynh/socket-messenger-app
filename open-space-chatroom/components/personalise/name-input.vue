@@ -20,6 +20,9 @@ export default {
       this.$emit('input', input);
     },
   },
+  mounted() {
+    this.name = this.$store.getters['myUserName'];
+  },
 };
 </script>
 

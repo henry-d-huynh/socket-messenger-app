@@ -39,14 +39,16 @@ export default {
     },
   },
   mounted() {
-    this.buttons = this.$el.querySelectorAll('button');
-    this.selectColour(this.selectedColour);
-  },
-  created() {
     if (!this.$store.getters['socket/isVerified']) {
       this.selectedColour =
         this.colours[Math.trunc(Math.random() * this.colours.length)];
+    } else {
+      if (this.$store.getters['myUserColour'])
+        this.selectedColour = this.$store.getters['myUserColour'];
     }
+
+    this.buttons = this.$el.querySelectorAll('button');
+    this.selectColour(this.selectedColour);
   },
 };
 </script>

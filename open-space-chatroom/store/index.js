@@ -1,9 +1,5 @@
 export const state = () => ({
-  userDetails: {
-    userId: '2',
-    name: 'Hesus',
-    colour: 'blue',
-  },
+  userDetails: {},
 
   activeUsers: [],
 
@@ -66,6 +62,9 @@ export const mutations = {
   updateActiveUsers(state, activeUsers) {
     state.activeUsers = activeUsers;
   },
+  updateMyDetails(state, myDetails) {
+    state.userDetails = myDetails;
+  },
 };
 
 export const getters = {
@@ -83,5 +82,13 @@ export const getters = {
 
   userMessages(state) {
     return state.userMessages;
+  },
+
+  myUserName(state) {
+    return state.userDetails?.name || '';
+  },
+
+  myUserColour(state) {
+    return state.userDetails?.colour || '';
   },
 };
