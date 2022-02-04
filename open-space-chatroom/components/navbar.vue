@@ -7,7 +7,7 @@
     </div>
 
     <div class="container" v-if="currState">
-      <PersonaliseInputs v-if="currState === 'personalise'" />
+      <PersonaliseInputs v-if="currState === 'personalise'" :socket="socket" />
 
       <button class="viewUsers" v-if="currState" @click="toggleButton">
         {{ buttonText }}
@@ -26,6 +26,12 @@
 
 <script>
 export default {
+  props: {
+    socket: {
+      type: Object,
+      required: true,
+    },
+  },
   computed: {
     currState() {
       return this.$store.getters['menu/currState'];

@@ -1,8 +1,5 @@
 export const state = () => ({
-  userDetails: {},
-
   activeUsers: [],
-
   userMessages: [
     {
       userId: '1',
@@ -65,6 +62,14 @@ export const mutations = {
   updateMyDetails(state, myDetails) {
     state.userDetails = myDetails;
   },
+  userHasUpdated(state, userDetails) {
+    const user = state.activeUsers.find(
+      (user) => user.userID === userDetails.userID
+    );
+    if (!user) return;
+    user.name = userDetails.name;
+    user.colour = userDetails.colour;
+  },
 };
 
 export const getters = {
@@ -76,19 +81,7 @@ export const getters = {
     return state.activeUsers.length;
   },
 
-  userDetails(state) {
-    return state.userDetails;
-  },
-
   userMessages(state) {
     return state.userMessages;
-  },
-
-  myUserName(state) {
-    return state.userDetails?.name || '';
-  },
-
-  myUserColour(state) {
-    return state.userDetails?.colour || '';
   },
 };

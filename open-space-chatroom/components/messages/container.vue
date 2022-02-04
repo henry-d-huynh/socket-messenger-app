@@ -40,8 +40,8 @@ export default {
     },
 
     isOwner(userMessage) {
-      const userId = this.$store.getters.userDetails.userId;
-      return userId === userMessage.userId ? 'owner' : '';
+      // const userId = this.$store.getters.userDetails.userId;
+      // return userId === userMessage.userId ? 'owner' : '';
     },
   },
 };

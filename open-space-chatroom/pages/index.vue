@@ -1,11 +1,12 @@
 <template>
   <div class="container">
     <ModalError />
+    <ModalSuccess />
     <ModalLoading v-if="!connected" />
     <ModalIntro v-else-if="showModalIntro" :socket="socket" />
     <main :class="{ blur: !verified }">
       <div id="navbar">
-        <Navbar />
+        <Navbar :socket="socket" />
       </div>
       <MessagesContainer />
       <ChatInput />
@@ -32,7 +33,7 @@ export default {
   },
   async created() {
     const localStorageExists = await this.$store.dispatch(
-      'users/checkLocalStorage'
+      'user/checkLocalStorage'
     );
 
     this.fetchedLocalStorage = true;
@@ -43,7 +44,7 @@ export default {
       this.$store.dispatch('socket/socketConnected');
 
       if (localStorageExists) {
-        const userDetails = this.$store.getters['users/getMyUserDetails'];
+        const userDetails = this.$store.getters['user/getMyUserDetails'];
         // console.log(userDetails);
         userDetails.agree = true;
         this.socket.emit('create_user', userDetails);
@@ -53,7 +54,7 @@ export default {
     });
 
     this.socket.on('verified', (userDetails) => {
-      this.$store.dispatch('users/updateMyUser', userDetails);
+      this.$store.dispatch('user/updateMyUser', userDetails);
       this.$store.dispatch('socket/userVerified');
       this.$store.commit('updateMyDetails', userDetails);
       this.showModalIntro = false;
@@ -66,6 +67,20 @@ export default {
 
     this.socket.on('active_users', (activeUsers) => {
       this.$store.commit('updateActiveUsers', activeUsers);
+    });
+
+    this.socket.on('user_update_success', (newUserDetails) => {
+      this.$store.dispatch(
+        'success/showModal',
+        `Successfully updated your details`
+      );
+
+      this.$store.dispatch('user/updateMyUser', newUserDetails);
+      this.$store.dispatch('menu/updateState', '');
+    });
+
+    this.socket.on('user_updated', (newUserDetails) => {
+      this.$store.commit('userHasUpdated', newUserDetails);
     });
   },
 };

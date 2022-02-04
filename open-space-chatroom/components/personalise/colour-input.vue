@@ -43,12 +43,13 @@ export default {
       this.selectedColour =
         this.colours[Math.trunc(Math.random() * this.colours.length)];
     } else {
-      if (this.$store.getters['myUserColour'])
-        this.selectedColour = this.$store.getters['myUserColour'];
+      if (this.$store.getters['user/myUserColour'])
+        this.selectedColour = this.$store.getters['user/myUserColour'];
     }
 
     this.buttons = this.$el.querySelectorAll('button');
     this.selectColour(this.selectedColour);
+    this.$emit('colourChange', this.selectedColour);
   },
 };
 </script>

@@ -21,7 +21,8 @@ export default {
     },
   },
   mounted() {
-    this.name = this.$store.getters['myUserName'];
+    this.name = this.$store.getters['user/myUserName'];
+    this.$emit('input', this.name);
   },
 };
 </script>

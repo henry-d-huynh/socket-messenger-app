@@ -1,6 +1,5 @@
 export const state = () => ({
   myUserDetails: null,
-  activeUsers: null,
 });
 
 export const mutations = {
@@ -32,5 +31,11 @@ export const actions = {
 export const getters = {
   getMyUserDetails(state) {
     return state.myUserDetails;
+  },
+  myUserColour(state) {
+    return state.myUserDetails?.colour || '';
+  },
+  myUserName(state) {
+    return state.myUserDetails?.name || '';
   },
 };

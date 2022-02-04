@@ -9,6 +9,7 @@ class View {
   }
 
   _emitUserCreateError(message) {
+    console.error(new Error("Something went wrong"));
     this._socket.emit("user_create_error", message);
   }
 
@@ -60,6 +61,7 @@ class View {
   }
 
   modifyUser(userDetails) {
+    console.log(userDetails);
     const name = userDetails.name.trim();
     const colour = userDetails.colour;
     const userID = userDetails.userID;
@@ -70,11 +72,11 @@ class View {
       );
 
     const nameValidator = helper.validateName(name);
-    if (!nameValidator.status)
+    if (!nameValidator.success)
       return this._emitUserCreateError(nameValidator.message);
 
     const colourValidator = helper.validateColour(colour);
-    if (!colourValidator.status)
+    if (!colourValidator.success)
       return this._emitUserCreateError(colourValidator.message);
 
     const formattedName = name
@@ -83,20 +85,18 @@ class View {
       .map((val) => val[0].toUpperCase() + val.slice(1))
       .join(" ");
 
-    const createdUser = {
-      name: formattedName,
-      colour,
-      userID,
-    };
+    const user = this._state.activeUsers.find((user) => user.userID === userID);
 
-    const userIndex = this._state.activeUsers.find((user, index) => {
-      if (user.userID === createdUser.userID) return index;
-    });
+    if (!user)
+      return this._emitUserCreateError(
+        `You don't exist, try refreshing your browser and try again`
+      );
 
-    if (!userIndex) return this._addUser(createdUser);
+    user.name = formattedName;
+    user.colour = colour;
 
-    this._state.activeUsers[userIndex] = createdUser;
-    this._io.emit("user_modified", createdUser);
+    this._socket.emit("user_update_success", user);
+    this._io.emit("user_updated", user);
   }
 
   removeUser() {

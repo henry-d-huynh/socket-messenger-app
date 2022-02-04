@@ -23,6 +23,8 @@ io.on("connection", (socket) => {
 
   socket.on("create_user", usersView.createUser.bind(usersView));
 
+  socket.on("update_user", usersView.modifyUser.bind(usersView));
+
   socket.on("disconnect", usersView.removeUser.bind(usersView));
 });
 
