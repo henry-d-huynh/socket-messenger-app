@@ -11,7 +11,8 @@ const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
   cors: {
-    origin: "https://openspace.covr.cc",
+    // origin: "https://openspace.covr.cc",
+    origin: "*",
   },
 });
 

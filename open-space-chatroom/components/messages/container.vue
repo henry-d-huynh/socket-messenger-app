@@ -1,5 +1,5 @@
 <template>
-  <div class="messages">
+  <div class="messages" ref="main">
     <div
       v-for="(userMessage, uIndex) in userMessages"
       :key="uIndex"
@@ -21,12 +21,21 @@
 
 <script>
 export default {
+  data: () => ({
+    bottomScroll: true,
+  }),
   computed: {
     userMessages() {
       return this.$store.getters.userMessages;
     },
   },
   methods: {
+    scrollTop() {
+      const mainEl = this.$refs.main;
+
+      if (this.bottomScroll) return (mainEl.scrollTop = mainEl.scrollHeight);
+    },
+
     getMessages(userMessage) {
       return userMessage.messages;
     },
@@ -43,6 +52,23 @@ export default {
       const userId = this.$store.getters['user/myUserID'];
       return userId === userMessage.userID ? 'owner' : '';
     },
+  },
+  updated() {
+    this.scrollTop();
+  },
+  mounted() {
+    this.$el.addEventListener('scroll', () => {
+      const mainEl = this.$refs.main;
+      const scrollPos = mainEl.scrollTop + mainEl.offsetHeight;
+      const scrollHeight = mainEl.scrollHeight;
+      if (scrollHeight - scrollPos > 10) return (this.bottomScroll = false);
+
+      this.bottomScroll = true;
+    });
+
+    window.addEventListener('resize', () => {
+      this.scrollTop();
+    });
   },
 };
 </script>
