@@ -38,7 +38,7 @@ export default {
 
     this.fetchedLocalStorage = true;
 
-    this.socket = io('http://localhost:1337');
+    this.socket = io(this.$config.wssUrl);
 
     this.socket.on('connect', () => {
       this.$store.dispatch('socket/socketConnected');

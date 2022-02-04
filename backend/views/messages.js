@@ -18,7 +18,6 @@ class View {
 
     message.id = randomID();
     message.text = message.text.trim();
-    console.log(message);
 
     this._io.emit("message_receive", message);
   }

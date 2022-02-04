@@ -56,6 +56,10 @@ export default {
     baseURL: '/',
   },
 
+  publicRuntimeConfig: {
+    wssUrl: process.env.WSS_URL,
+  },
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
 };
