@@ -62,7 +62,6 @@ export default {
 
     this.socket.on('user_create_error', (message) => {
       this.$store.dispatch('error/showError', message);
-      this.showModalIntro = true;
     });
 
     this.socket.on('active_users', (activeUsers) => {
