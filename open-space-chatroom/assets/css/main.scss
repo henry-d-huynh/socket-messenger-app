@@ -16,6 +16,7 @@ body,
 #__nuxt,
 #__layout {
   height: 100%;
+  height: -webkit-fill-available;
 }
 
 $blue: #0047ff;
