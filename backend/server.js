@@ -19,8 +19,8 @@ const io = new Server(httpServer, {
 const port = 1337;
 
 io.on("connection", (socket) => {
-  usersView = new UsersView(io, socket, state);
-  messagesView = new MessageView(io, socket, state);
+  const usersView = new UsersView(io, socket, state);
+  const messagesView = new MessageView(io, socket, state);
 
   socket.emit("active_users", state.activeUsers);
 
