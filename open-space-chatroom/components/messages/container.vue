@@ -11,7 +11,7 @@
         :key="message.id"
       >
         <span :class="'message_wrapper ' + getColour(userMessage)">
-          {{ message.text }}
+          <p>{{ message.text }}</p>
         </span>
       </span>
       <span class="name">{{ getName(userMessage) }}</span>
@@ -103,9 +103,14 @@ export default {
 }
 
 .message_wrapper {
-  display: inline-block;
+  display: block;
   padding: 0.75em 1em;
   border-radius: 10px;
+  p {
+    margin: 0;
+    padding: 0;
+    word-wrap: break-word;
+  }
 }
 
 .name {
