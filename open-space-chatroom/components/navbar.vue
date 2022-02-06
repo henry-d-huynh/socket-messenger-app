@@ -46,7 +46,8 @@ export default {
       this.$store.dispatch('menu/toggleButton');
     },
     resetMenuState() {
-      this.$store.dispatch('menu/updateState', '');
+      if (this.$store.getters['menu/currState'] === 'showActiveUsers')
+        this.$store.dispatch('menu/updateState', '');
     },
   },
   created() {
