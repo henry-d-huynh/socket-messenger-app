@@ -98,12 +98,13 @@ export default {
   grid-gap: 5px;
 }
 
-.message {
-  max-width: 60vw;
-}
+// .message {
+//   max-width: 60vw;
+// }
 
 .message_wrapper {
-  display: block;
+  max-width: 60vw;
+  display: inline-block;
   padding: 0.75em 1em;
   border-radius: 10px;
   p {
